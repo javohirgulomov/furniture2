@@ -1,0 +1,102 @@
+{% load static %}
+{% load i18n %}
+
+<div class="sidebar-3 sidebar-collection col-lg-3 col-md-4 col-sm-4">
+
+    <!-- category filter -->
+    <div class="sidebar-block">
+        <div class="title-block">{% trans 'Categories' %}</div>
+        <div class="block-content">
+            {% for category in categories %}
+                <div class="cateTitle hasSubCategory open level1">
+                    <span class="arrow collapse-icons collapsed"
+                          data-toggle="collapse"
+                          data-target="#cat-{{ category.id }}"
+                          aria-expanded="false"
+                          role="status">
+                        <i class="zmdi zmdi-minus"></i>
+                        <i class="zmdi zmdi-plus"></i>
+                    </span>
+                    <a class="cateItem"
+                       onclick="addUrlParameter('cat', {{ category.id }})">
+                        {{ category.name }}
+                    </a>
+                    <div class="subCategory collapse" id="cat-{{ category.id }}"
+                         aria-expanded="true" role="status">
+                        {% for sub_cat in category.children.all %}
+                            <div class="cateTitle">
+                                <a class="cateItem"
+                                   onclick="addUrlParameter('cat', {{ sub_cat.id }})">
+                                    {{ sub_cat.name }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- manufacture filter -->
+    <div class="sidebar-block">
+        <div class="title-block">{% trans 'Catalog' %}</div>
+        <div class="new-item-content">
+            <h3 class="title-product">{% trans 'Manufacture' %}</h3>
+            <ul class="scroll-product">
+                {% for manufacture in manufactures %}
+                    <li>
+                        <label class="check">
+                            <input type="checkbox"
+                                   onclick="addUrlParameter('manufacture', {{ manufacture.id }})">
+                            <span class="checkmark"></span>
+                        </label>
+                        <a onclick="addUrlParameter('manufacture', {{ manufacture.id }})">
+                            <b>{{ manufacture.name }}</b>
+                            <span class="quantity">({{ manufacture.products.count }})</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- color filter -->
+        <div class="sidebar-block by-color">
+            <h3 class="title-product">{% trans 'By Color' %}</h3>
+            <div class="d-flex flex-wrap">
+                {% for color in colors %}
+                    <span class="m-1">
+                        <a onclick="addUrlParameter('color', {{ color.id }})"
+                           style="cursor:pointer; display:flex; align-items:center; gap:5px;">
+                            <label style="background-color: {{ color.hex_code }};
+                                          width: 16px;
+                                          height: 16px;
+                                          border-radius: 50%;
+                                          display: inline-block;
+                                          cursor: pointer;">
+                            </label>
+                            {{ color.name }}
+                        </a>
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- tags filter -->
+    <div class="sidebar-block product-tags">
+        <div class="title-block">{% trans 'Product Tags' %}</div>
+        <div class="block-content">
+            <ul class="listSidebarBlog list-unstyled">
+                {% for tag in tags %}
+                    <li>
+                        <a onclick="addUrlParameter('tag', {{ tag.id }})"
+                           style="cursor:pointer;">
+                            {{ tag.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
