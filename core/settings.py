@@ -26,9 +26,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['n73.ezma.uz', 'www.n73.ezma.uz']
+ALLOWED_HOSTS = ['javohir.ezma.uz', 'www.javohir.ezma.uz']
 
-CSRF_TRUSTED_ORIGINS = ['https://n73.ezma.uz', 'https://www.n73.ezma.uz']
+CSRF_TRUSTED_ORIGINS = ['https://javohir.ezma.uz', 'https://www.javohir.ezma.uz']
 
 # Application definition
 
